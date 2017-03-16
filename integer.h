@@ -118,7 +118,8 @@ public:
 		//!   insensitive suffix of 'h', 'o', or 'b'.  No suffix means base 10.
 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
-		explicit Integer(const char *str, ByteOrder order = BIG_ENDIAN_ORDER);
+		explicit Integer(const char *str);
+		explicit Integer(const char *str, ByteOrder order);
 
 		//! \brief Convert from a wide C-string
 		//! \param str wide C-string value
@@ -127,7 +128,8 @@ public:
 		//!   insensitive suffix of 'h', 'o', or 'b'.  No suffix means base 10.
 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
-		explicit Integer(const wchar_t *str, ByteOrder order = BIG_ENDIAN_ORDER);
+		explicit Integer(const wchar_t *str);
+		explicit Integer(const wchar_t *str, ByteOrder order);
 
 		//! \brief Convert from a big-endian byte array
 		//! \param encodedInteger big-endian byte array
@@ -136,7 +138,8 @@ public:
 		//! \param order the ByteOrder of the array to be processed
 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
-		Integer(const byte *encodedInteger, size_t byteCount, Signedness sign=UNSIGNED, ByteOrder order = BIG_ENDIAN_ORDER);
+		Integer(const byte *encodedInteger, size_t byteCount, Signedness sign=UNSIGNED);
+		Integer(const byte *encodedInteger, size_t byteCount, Signedness sign, ByteOrder order);
 
 		//! \brief Convert from a big-endian array
 		//! \param bt BufferedTransformation object with big-endian byte array
@@ -145,7 +148,8 @@ public:
 		//! \param order the ByteOrder of the data to be processed
 		//! \details Byte order was added at Crypto++ 5.7 to allow use of little-endian
 		//!   integers with curve25519, Poly1305 and Microsoft CAPI.
-		Integer(BufferedTransformation &bt, size_t byteCount, Signedness sign=UNSIGNED, ByteOrder order = BIG_ENDIAN_ORDER);
+		Integer(BufferedTransformation &bt, size_t byteCount, Signedness sign=UNSIGNED);
+		Integer(BufferedTransformation &bt, size_t byteCount, Signedness sign, ByteOrder order);
 
 		//! \brief Convert from a BER encoded byte array
 		//! \param bt BufferedTransformation object with BER encoded byte array

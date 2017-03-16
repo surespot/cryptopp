@@ -2942,6 +2942,11 @@ signed long Integer::ConvertToLong() const
 	return sign==POSITIVE ? value : -(signed long)value;
 }
 
+Integer::Integer(BufferedTransformation &encodedInteger, size_t byteCount, Signedness s)
+{
+	Decode(encodedInteger, byteCount, s);
+}
+
 Integer::Integer(BufferedTransformation &encodedInteger, size_t byteCount, Signedness s, ByteOrder o)
 {
 	CRYPTOPP_ASSERT(o == BIG_ENDIAN_ORDER || o == LITTLE_ENDIAN_ORDER);
@@ -2956,6 +2961,11 @@ Integer::Integer(BufferedTransformation &encodedInteger, size_t byteCount, Signe
 		return;
 	}
 
+	Decode(encodedInteger, byteCount, s);
+}
+
+Integer::Integer(const byte *encodedInteger, size_t byteCount, Signedness s)
+{
 	Decode(encodedInteger, byteCount, s);
 }
 
@@ -3131,7 +3141,7 @@ Integer::Integer(word value, size_t length)
 }
 
 template <class T>
-static Integer StringToInteger(const T *str, ByteOrder order)
+static Integer StringToInteger(const T *str, ByteOrder order = BIG_ENDIAN_ORDER)
 {
 	CRYPTOPP_ASSERT( order == BIG_ENDIAN_ORDER || order == LITTLE_ENDIAN_ORDER );
 
@@ -3267,10 +3277,22 @@ static Integer StringToInteger(const T *str, ByteOrder order)
 	return v;
 }
 
+Integer::Integer(const char *str)
+	: reg(2), sign(POSITIVE)
+{
+	*this = StringToInteger(str);
+}
+
 Integer::Integer(const char *str, ByteOrder order)
 	: reg(2), sign(POSITIVE)
 {
 	*this = StringToInteger(str,order);
+}
+
+Integer::Integer(const wchar_t *str)
+	: reg(2), sign(POSITIVE)
+{
+	*this = StringToInteger(str);
 }
 
 Integer::Integer(const wchar_t *str, ByteOrder order)
